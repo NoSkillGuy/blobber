@@ -2,7 +2,7 @@
 set -e
 
 GIT_COMMIT=$(git rev-list -1 HEAD)
-echo $GIT_COMMIT
+echo "$GIT_COMMIT"
 
 cmd="build"
 
@@ -17,7 +17,7 @@ do
     esac
 done
 
-docker $cmd --build-arg GIT_COMMIT=$GIT_COMMIT -f docker.local/ValidatorDockerfile . -t validator
+docker $cmd --build-arg GIT_COMMIT=$GIT_COMMIT -f docker.local/build.validator/Dockerfile . -t validator
 docker $cmd --build-arg GIT_COMMIT=$GIT_COMMIT -f docker.local/Dockerfile . -t blobber
 
 for i in $(seq 1 6);
